@@ -1,0 +1,60 @@
+sudo: required
+dist: trusty
+language: python
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install python-sphinx
+  - which python
+  - python --version
+  - which pip
+
+install:
+  - pip install -r requirements.txt
+  - pip install codecov
+  - pip install recommonmark
+  - pip install sphinx
+  - pip install sphinx_rtd_theme
+  - pip install http://download.pytorch.org/whl/cpu/torch-0.3.0.post4-cp36-cp36m-linux_x86_64.whl
+  - pip install torchvision
+  - python setup.py install
+  - pip install --upgrade pytest
+
+cache:
+  pip: true
+
+env:
+  global:
+  - COLUMNS=80
+  - secure: somesome
+
+python:
+  - '3.6'
+
+script:
+  - coverage run --source=ganzoo setup.py test
+  - coverage report
+  - set -e
+  - pwd
+  - cd docs
+  - make html
+  - cd ..
+  - pip install doctr
+  - doctr deploy .
+  - pytest
+
+after_success:
+  - codecov
+
+deploy:
+  provider: pypi
+  user: innerlee
+  password:
+    secure: somesome
+  on:
+    branch: master
+    tags: true
+    python: '3.6'
+  distributions: sdist bdist_wheel
+  skip_cleanup: true
+  skip_upload_docs: true
