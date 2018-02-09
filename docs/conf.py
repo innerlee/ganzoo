@@ -145,5 +145,5 @@ man_pages = [(master_doc, 'ganzoo', 'ganzoo Documentation', [author], 1)]
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'ganzoo', 'ganzoo Documentation', author, 'Zhizhong Li',
-     'tools for GAN research.', 'Miscellaneous'),
+     'implementations of all the GANs.', 'Miscellaneous'),
 ]

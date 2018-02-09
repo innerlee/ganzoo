@@ -1,3 +1,3 @@
-## Evaluation
+## DCGAN
 
 This module offers DCGAN.
