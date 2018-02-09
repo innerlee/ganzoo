@@ -50,7 +50,7 @@ deploy:
   provider: pypi
   user: innerlee
   password:
-    secure: somesome
+    secure: MVrf7maVaYu8SX6jSeI1edTfimd2Ia+705kBboyDrHEW0NHLV52M0hXCUq/4XUKoA+fBUxwFcTeIMGpRW1uRHt88roNuEREo40yLfjMHTW9vvx0nDyLFuvtu4HoXbWyFKBMfebAJJbn9orjX3eQC5gu4TUw0jDOMGPOoCqne7wiRlJTX7YufBIRggIkpIE5lbimZuM9vUB8at/BZbnKehZibzrdwHia5vSOHfQL6QFpmNR1fwqF/CPlBCujvaFvY14TxGMDbxQ9K44fPgxOhy3CLDcW5FHIcEgkQafg9oDqFpXGxSuqmLSXb/dhBIiNKrvppI23NKjCjkwhuCSVtkni1B1+j+wgsDDfVe7UCjQLyLlBwfFdSEQjDkBAZ7wgBRk7ovJTH7jqvCYge7Hojm1PEgqoq0X7YKUDNFrOxv/1aeWkpWzhC/O/0zdBmoeXCMaaumGG4GALbg8Oc/AiJE+V2afM/41djRUVkJZT8gjoAgOS+iYXJoa1etGvnrJTYVd3mXymg2472zJWjS1rAzq2ZpdDZnl8+9i3/E/R8smSpqEW9lNKDxnxhbghf+jfz1TSE3QrCRHJkoRO/JGCJsY4mH5ZlEnvox9J658cHN9FxC1tN0wO1Yf/hjQqvC1jEFqM6w4QIjScVzu/JtxNSsBthdHkgzPt1MFJRPTW6ytE=
   on:
     branch: master
     tags: true
