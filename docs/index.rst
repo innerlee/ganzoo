@@ -11,11 +11,10 @@ Welcome to ganzoo's documentation!
    :maxdepth: 2
 
    intro.md
-   models.md
-   datasets.md
-   evaluation.md
-   visualize.md
-   utils.md
+   gan.md
+   dcgan.md
+   wgan.md
+   wgan_gp.md
    api.rst
 
 
