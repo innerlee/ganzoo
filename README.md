@@ -1,4 +1,4 @@
-# Introduction
+# GAN ZOO
 
 [![Documentation](https://img.shields.io/badge/documentation-master-green.svg)](https://innerlee.github.io/ganzoo/)
 [![PyPI Version](https://img.shields.io/pypi/v/ganzoo.svg)](https://pypi.python.org/pypi/ganzoo)
