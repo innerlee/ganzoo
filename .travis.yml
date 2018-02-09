@@ -10,13 +10,13 @@ before_install:
   - which pip
 
 install:
+  - pip install http://download.pytorch.org/whl/cpu/torch-0.3.0.post4-cp36-cp36m-linux_x86_64.whl
+  - pip install torchvision
   - pip install -r requirements.txt
   - pip install codecov
   - pip install recommonmark
   - pip install sphinx
   - pip install sphinx_rtd_theme
-  - pip install http://download.pytorch.org/whl/cpu/torch-0.3.0.post4-cp36-cp36m-linux_x86_64.whl
-  - pip install torchvision
   - python setup.py install
   - pip install --upgrade pytest
 
@@ -26,7 +26,7 @@ cache:
 env:
   global:
   - COLUMNS=80
-  - secure: somesome
+  - secure: "Qd2sF/ZjKyYMO/DGl0qznbmTjtSy6XnUjAQgMe1Bn3XtHBSYPTN0vrR043s/mhxE+ltoHoP8tG7QVYZiJQJnYxEHJQO0+r0phM7sA4Qjbx0LxUryCCDQIUOcjRhMwATEtOnwPDfNq4nZsl00UwK4ag/JjfpZR8TBGn6bGY2PhZePLkmO4L6uGGAEygQQ/LQsB/bmh3C0Ks4EibNMqz8CB43VNQX/qHpXrZaMMQEgbaR+gUXqdSoHqzYSKqZ359dsodcCTRHHfhN2r4IxIpZP1Iizq0jflxgXf4f4WJ96y3v2MAmpP56IORXi5mu2AOVpZFSGn91rJIrvFGJowPS2+Stb8W7G8alG0ac3nppJv34N9RjBfpcFly8hybhiEebHkQf+vuiV4wvw593OnZ36hRzBffyx4qq2QZ/BcarAgbnWqtG7VxVumoiRuWL4caaGaWd4gByu/p76nkLcSC4G7RAzXW0QsEe295nQgS1qIEWSCBBz2USl0DNkzJIBKhHZCL+md6lePtItpLFd13ZtS5FRGUUhJe+erbVV8OwxqcP/XPuGwYFPAPMQLULZ8Tm3UL1ta+lRGSDNc/hddkA15/gqVX7ZLdjShrU2Omk4DfH748pSfroJtklT7Yz6Ep9Z10a2+rXAzds6JxMjShrIdR2Tv9Kkh21C/60Tx+cydr8="
 
 python:
   - '3.6'
