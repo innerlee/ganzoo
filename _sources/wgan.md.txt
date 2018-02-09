@@ -1,3 +1,3 @@
-## Models
+## WGAN
 
 This module provides WGAN
