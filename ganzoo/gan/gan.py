@@ -30,6 +30,7 @@ parser.add_argument('--weight_decay', type=float, default=0, help='weight decay 
 parser.add_argument('--epoch', type=int, default=200, help='how many epochs to train')
 parser.add_argument('--repeatD', type=int, default=1, help='how many trainig of D per iteration')
 parser.add_argument('--drawepoch', type=int, default=10, help='draw images each how many epochs')
+parser.add_argument('--nsample', type=int, default=0, help='how many samples')
 opt = parser.parse_args()
 
 #endregion yapf: enable
@@ -51,7 +52,7 @@ print(opt)
 
 #1. load data
 dataset, dataloader = gb.loaddata(
-    opt.dataset, opt.dataroot, opt.imsize, opt.bs, droplast=True)
+    opt.dataset, opt.dataroot, opt.imsize, opt.bs, opt.nsample, droplast=True)
 latent = gb.GaussLatent(opt.nz, opt.bs)
 print(f'{len(dataset)} samples')
 print(f'{len(dataloader)} batches')
@@ -126,8 +127,8 @@ for epoch in range(opt.epoch):
 
             err_real = loss(D(x_real), Variable(ones)).mean()
             err_fake = loss(D(x_fake), Variable(zeros)).mean()
-            assert err_real.size() == (1,)
-            assert err_fake.size() == (1,)
+            assert err_real.size() == (1, )
+            assert err_fake.size() == (1, )
 
             err_real.backward()
             err_fake.backward()
@@ -149,20 +150,23 @@ for epoch in range(opt.epoch):
         z = next(latent).cuda(async=True)
         gen = G(Variable(z))
         errG = loss(D(gen), Variable(ones)).mean()
-        assert errG.size() == (1,)
+        assert errG.size() == (1, )
 
         errG.backward()
 
         lossG = errG.data[0]
 
-        print(f'{epoch:03}:{i:04}/{len(dataloader)} loss D real/fake {lossD_real:.7}/{lossD_fake:.7}, G {lossG:.7}')
+        print(
+            f'{epoch:03}:{i:04}/{len(dataloader)} loss D real/fake {lossD_real:.7}/{lossD_fake:.7}, G {lossG:.7}'
+        )
 
     if epoch % opt.drawepoch == 0 or epoch == opt.epoch - 1:
         G.eval()
 
-        z = Variable(latent.sample(64))
+        z = Variable(latent.sample(64).cuda(async=True))
         gen = G(z)
-        vutils.save_image(gen.data.mul(0.5).add(0.5), f'{opt.workdir}/png/{epoch:06}.png')
+        vutils.save_image(
+            gen.data.mul(0.5).add(0.5), f'{opt.workdir}/png/{epoch:06}.png')
 
         G.train()
 
