@@ -3,9 +3,6 @@ tmp/
 # OSX
 .DS_Store
 
-# vscode config
-.vscode/
-
 # Python cache folder
 __pycache__
 
