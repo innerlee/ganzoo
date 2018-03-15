@@ -132,8 +132,8 @@ for epoch in range(opt.epoch):
             err_real.backward()
             err_fake.backward()
 
-            lossD_real += err_real[0]
-            lossD_fake += err_fake[0]
+            lossD_real += err_real.data[0]
+            lossD_fake += err_fake.data[0]
 
             optimizerD.step()
 
@@ -153,9 +153,9 @@ for epoch in range(opt.epoch):
 
         errG.backward()
 
-        lossG = errG[0]
+        lossG = errG.data[0]
 
-    print(f'loss D real/fake {lossD_real:.7}/{lossD_fake:.7}, G {lossG:.7}')
+        print(f'{epoch:03}:{i:04}/{len(dataloader)} loss D real/fake {lossD_real:.7}/{lossD_fake:.7}, G {lossG:.7}')
 
     if epoch % opt.drawepoch == 0 or epoch == opt.epoch - 1:
         G.eval()
