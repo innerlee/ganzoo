@@ -23,7 +23,7 @@ parser.add_argument('--nz', type=int, default=100, help='latent dim')
 parser.add_argument('--activation', default='leakyrelu', help='activation for G and D')
 parser.add_argument('--normalize', default='batch', help='normalize for G and D')
 parser.add_argument('--optimizer', default='adam', help='adam | adamax | rmsprop | sgd')
-parser.add_argument('--lr', type=float, default=0.0002, help='learning rate for D and G')
+parser.add_argument('--lr', type=float, default=0.0001, help='learning rate for D and G')
 parser.add_argument('--beta1', type=float, default=0.5, help='beta1 for adam/adamax')
 parser.add_argument('--beta2', type=float, default=0.999, help='beta2 for adam/adamax')
 parser.add_argument('--weight_decay', type=float, default=0, help='weight decay for D and G')
@@ -124,8 +124,8 @@ for epoch in range(opt.epoch):
             x_real = Variable(x)
             x_fake = Variable(G(Variable(z, volatile=True)).data)
 
-            err_real = loss(D(x_real), Variable(ones)).sum()
-            err_fake = loss(D(x_fake), Variable(zeros)).sum()
+            err_real = loss(D(x_real), Variable(ones)).mean()
+            err_fake = loss(D(x_fake), Variable(zeros)).mean()
             assert err_real.size() == (1,)
             assert err_fake.size() == (1,)
 
@@ -148,7 +148,7 @@ for epoch in range(opt.epoch):
 
         z = next(latent).cuda(async=True)
         gen = G(Variable(z))
-        errG = loss(D(gen), Variable(ones)).sum()
+        errG = loss(D(gen), Variable(ones)).mean()
         assert errG.size() == (1,)
 
         errG.backward()
