@@ -133,8 +133,8 @@ for epoch in range(opt.epoch):
             err_real.backward()
             err_fake.backward()
 
-            lossD_real += err_real.data[0]
-            lossD_fake += err_fake.data[0]
+            lossD_real += gb.bce2prob(err_real.data[0], 1)
+            lossD_fake += gb.bce2prob(err_fake.data[0], 0)
 
             optimizerD.step()
 
@@ -158,10 +158,10 @@ for epoch in range(opt.epoch):
 
         optimizerG.step()
 
-        lossG = errG.data[0]
+        lossG = gb.bce2prob(errG.data[0], 1)
 
         print(
-            f'{epoch:03}:{i:04}/{len(dataloader)} loss D real/fake {lossD_real:.7}/{lossD_fake:.7}, G {lossG:.7}'
+            f'{epoch:03}:{i:04}/{len(dataloader)} loss D real/fake {lossD_real:.5}/{lossD_fake:.5}, G {lossG:.5}'
         )
 
     if epoch % opt.drawepoch == 0 or epoch == opt.epoch - 1:
