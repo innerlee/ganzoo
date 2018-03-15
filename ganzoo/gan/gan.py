@@ -147,12 +147,16 @@ for epoch in range(opt.epoch):
         for p in D.parameters():
             p.requires_grad = False
 
+        G.zero_grad()
+
         z = next(latent).cuda(async=True)
         gen = G(Variable(z))
         errG = loss(D(gen), Variable(ones)).mean()
         assert errG.size() == (1, )
 
         errG.backward()
+
+        optimizerG.step()
 
         lossG = errG.data[0]
 
