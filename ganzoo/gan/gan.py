@@ -31,6 +31,7 @@ parser.add_argument('--epoch', type=int, default=200, help='how many epochs to t
 parser.add_argument('--repeatD', type=int, default=1, help='how many trainig of D per iteration')
 parser.add_argument('--drawepoch', type=int, default=10, help='draw images each how many epochs')
 parser.add_argument('--nsample', type=int, default=0, help='how many samples')
+parser.add_argument('--model', default='dcgan', help='dcgan | upsampling, model to use for G and D.')
 opt = parser.parse_args()
 
 #endregion yapf: enable
@@ -58,20 +59,38 @@ print(f'{len(dataset)} samples')
 print(f'{len(dataloader)} batches')
 
 #2. load model and init
-D = gb.DCGAN_D(
-    opt.imsize,
-    3,
-    opt.width,
-    activation=opt.activation,
-    normalize=opt.normalize,
-    outactivation='none').cuda()
-G = gb.DCGAN_G(
-    opt.imsize,
-    3,
-    opt.nz,
-    opt.width,
-    activation=opt.activation,
-    normalize=opt.normalize).cuda()
+if opt.model == 'dcgan':
+    D = gb.DCGAN_D(
+        opt.imsize,
+        3,
+        opt.width,
+        activation=opt.activation,
+        normalize=opt.normalize,
+        outactivation='none').cuda()
+    G = gb.DCGAN_G(
+        opt.imsize,
+        3,
+        opt.nz,
+        opt.width,
+        activation=opt.activation,
+        normalize=opt.normalize).cuda()
+elif opt.model == 'upsampling':
+    D = gb.DOWNSAMPLE_D(
+        opt.imsize,
+        3,
+        opt.width,
+        extraconv=1,
+        activation=opt.activation,
+        normalize=opt.normalize,
+        outactivation='none').cuda()
+    G = gb.UPSAMPLE_G(
+        opt.imsize,
+        3,
+        opt.nz,
+        opt.width,
+        extraconv=1,
+        activation=opt.activation,
+        normalize=opt.normalize).cuda()
 print(D)
 print(G)
 
