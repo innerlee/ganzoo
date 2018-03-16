@@ -15,7 +15,6 @@
         "tf": true,
         "**/*.aux": true,
         "**/*.lof": true,
-        "**/*.log": true,
         "**/*.lot": true,
         "**/*.fls": true,
         "**/*.out": true,
