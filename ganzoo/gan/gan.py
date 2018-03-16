@@ -27,9 +27,9 @@ parser.add_argument('--lr', type=float, default=0.0001, help='learning rate for 
 parser.add_argument('--beta1', type=float, default=0.5, help='beta1 for adam/adamax')
 parser.add_argument('--beta2', type=float, default=0.999, help='beta2 for adam/adamax')
 parser.add_argument('--weight_decay', type=float, default=0, help='weight decay for D and G')
-parser.add_argument('--epoch', type=int, default=200, help='how many epochs to train')
+parser.add_argument('--epoch', type=int, default=50, help='how many epochs to train')
 parser.add_argument('--repeatD', type=int, default=1, help='how many trainig of D per iteration')
-parser.add_argument('--drawepoch', type=int, default=10, help='draw images each how many epochs')
+parser.add_argument('--drawepoch', type=int, default=1, help='draw images each how many epochs')
 parser.add_argument('--nsample', type=int, default=0, help='how many samples')
 parser.add_argument('--model', default='dcgan', help='dcgan | upsampling, model to use for G and D.')
 opt = parser.parse_args()
@@ -122,6 +122,7 @@ zeros = torch.zeros(opt.bs, 1).cuda(async=True)
 
 #5. start training
 iters = 0
+timer = gb.Timer()
 for epoch in range(opt.epoch):
     for i in range(len(dataloader)):
 
@@ -180,7 +181,7 @@ for epoch in range(opt.epoch):
         lossG = gb.bce2prob(errG.data[0], 1)
 
         print(
-            f'{epoch:03}:{i:04}/{len(dataloader)} loss D real/fake {lossD_real:.5}/{lossD_fake:.5}, G {lossG:.5}'
+            f'[{timer.now()}]{epoch:03}:{i:04}/{len(dataloader)} loss D real/fake {lossD_real:.5}/{lossD_fake:.5}, G {lossG:.5}'
         )
 
     if epoch % opt.drawepoch == 0 or epoch == opt.epoch - 1:
