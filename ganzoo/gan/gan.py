@@ -90,7 +90,9 @@ elif opt.model == 'upsampling':
         opt.width,
         extraconv=1,
         activation=opt.activation,
-        normalize=opt.normalize).cuda()
+        normalize = opt.normalize).cuda()
+else:
+    raise ValueError(f'model `{opt.model}` not supported')
 print(D)
 print(G)
 
