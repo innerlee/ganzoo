@@ -26,7 +26,7 @@ parser.add_argument('--optimizer', default='adam', help='adam | adamax | rmsprop
 parser.add_argument('--lr', type=float, default=0.0001, help='learning rate for D and G')
 parser.add_argument('--beta1', type=float, default=0.5, help='beta1 for adam/adamax')
 parser.add_argument('--beta2', type=float, default=0.999, help='beta2 for adam/adamax')
-parser.add_argument('--weight_decay', type=float, default=0, help='weight decay for D and G')
+parser.add_argument('--weightdecay', type=float, default=0, help='weight decay for D and G')
 parser.add_argument('--epoch', type=int, default=50, help='how many epochs to train')
 parser.add_argument('--repeatD', type=int, default=1, help='how many trainig of D per iteration')
 parser.add_argument('--drawepoch', type=int, default=1, help='draw images each how many epochs')
@@ -106,14 +106,14 @@ optimizerD = gb.get_optimizer(
     lr=opt.lr,
     beta1=opt.beta1,
     beta2=opt.beta2,
-    weight_decay=opt.weight_decay)
+    weight_decay=opt.weightdecay)
 optimizerG = gb.get_optimizer(
     G.parameters(),
     opt.optimizer,
     lr=opt.lr,
     beta1=opt.beta1,
     beta2=opt.beta2,
-    weight_decay=opt.weight_decay)
+    weight_decay=opt.weightdecay)
 print(optimizerD)
 print(optimizerG)
 
