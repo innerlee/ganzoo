@@ -30,6 +30,7 @@ parser.add_argument('--weightdecay', type=float, default=0, help='weight decay f
 parser.add_argument('--epoch', type=int, default=50, help='how many epochs to train')
 parser.add_argument('--repeatD', type=int, default=1, help='how many trainig of D per iteration')
 parser.add_argument('--drawepoch', type=int, default=1, help='draw images each how many epochs')
+parser.add_argument('--saveepoch', type=int, default=1, help='save models each how many epochs')
 parser.add_argument('--nsample', type=int, default=0, help='how many samples')
 parser.add_argument('--model', default='dcgan', help='dcgan | upsampling, model to use for G and D.')
 opt = parser.parse_args()
@@ -196,5 +197,6 @@ for epoch in range(opt.epoch):
 
         G.train()
 
-    saver.save(G.state_dict(), f'{opt.workdir}/G_epoch{epoch:06}.pth')
-    saver.save(D.state_dict(), f'{opt.workdir}/D_epoch{epoch:06}.pth')
+    if epoch % opt.saveepoch == 0 or epoch == opt.epoch - 1:
+        saver.save(G.state_dict(), f'{opt.workdir}/G_epoch{epoch:06}.pth')
+        saver.save(D.state_dict(), f'{opt.workdir}/D_epoch{epoch:06}.pth')
