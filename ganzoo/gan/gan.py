@@ -32,6 +32,7 @@ parser.add_argument('--repeatD', type=int, default=1, help='how many trainig of 
 parser.add_argument('--drawepoch', type=int, default=1, help='draw images each how many epochs')
 parser.add_argument('--saveepoch', type=int, default=1, help='save models each how many epochs')
 parser.add_argument('--nsample', type=int, default=0, help='how many samples')
+parser.add_argument('--nworker', type=int, default=2, help='how many samples')
 parser.add_argument('--model', default='dcgan', help='dcgan | upsampling, model to use for G and D.')
 opt = parser.parse_args()
 
@@ -54,7 +55,7 @@ print(opt)
 
 #1. load data
 dataset, dataloader = gb.loaddata(
-    opt.dataset, opt.dataroot, opt.imsize, opt.bs, opt.nsample, droplast=True)
+    opt.dataset, opt.dataroot, opt.imsize, opt.bs, opt.nsample, nWorkers=opt.nworker, droplast=True)
 latent = gb.GaussLatent(opt.nz, opt.bs)
 print(f'{len(dataset)} samples')
 print(f'{len(dataloader)} batches')
