@@ -41,6 +41,7 @@ opt = parser.parse_args()
 #region prepare
 # setup gpu
 gb.visible_gpu(opt.gpu)
+gb.occupy_gpu()
 torch.backends.cudnn.benchmark = True
 # setup workdir
 os.system(f'mkdir -p {opt.workdir}/png')
