@@ -121,7 +121,7 @@ print(optimizerD)
 print(optimizerG)
 
 #4. loss
-loss = torch.nn.BCEWithLogitsLoss()
+loss = torch.nn.BCEWithLogitsLoss().cuda()
 ones = torch.ones(opt.bs, 1).cuda(async=True)
 zeros = torch.zeros(opt.bs, 1).cuda(async=True)
 
